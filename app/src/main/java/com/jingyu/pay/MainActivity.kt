@@ -1,6 +1,7 @@
 package com.jingyu.pay
 
 import android.os.Bundle
+import android.view.Window
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -15,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -26,10 +26,14 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_notifications,  R.id.navigation_home, R.id.navigation_dashboard,R.id.navigation_order, R.id.navigation_notifications
             )
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.selectedItemId = R.id.navigation_notifications
+
+
     }
 }

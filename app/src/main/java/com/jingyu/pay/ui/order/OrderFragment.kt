@@ -1,4 +1,4 @@
-package com.jingyu.pay.ui.home
+package com.jingyu.pay.ui.order
 
 import android.os.Bundle
 import android.util.Log
@@ -14,18 +14,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.jingyu.pay.AddBankCardDialog
 import com.jingyu.pay.R
 import com.jingyu.pay.databinding.FragmentHomeBinding
+import com.jingyu.pay.databinding.FragmentOrderBinding
 
-class HomeFragment : Fragment() {
+class OrderFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentOrderBinding? = null
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     var addbutton : Button? = null
 
-    val merchantOrdersViewModel: HomeViewModel by lazy {
-        ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
+    val merchantOrdersViewModel: OrderViewModel by lazy {
+        ViewModelProvider(this, OrderViewModelFactory()).get(OrderViewModel::class.java)
     }
 
 
@@ -35,18 +37,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        addbutton = root.findViewById(R.id.addbtn)
-        addbutton!!.setOnClickListener {
-            val dialog = AddBankCardDialog(activity)
-            dialog.show()
 
-        }
 
-        merchantOrdersViewModel.get().observe(requireActivity(), Observer {
-            Log.d("Jack",it)
-        })
 
 
 
