@@ -3,6 +3,7 @@ package com.jingyu.pay
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jingyu.pay.ui.login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +24,21 @@ class SplashActivity : AppCompatActivity() {
     }
 
     fun JumpPage(){
+        var token = PayHelperUtils.getUserToken(this)
         val intent  = Intent()
-        intent.setClass(this,LoginActivity::class.java)
+        intent.setClass(this, LoginActivity::class.java)
         startActivity(intent)
+//        if (token.isEmpty()){
+//
+//
+//
+//        }else{
+//            val intent  = Intent()
+//            intent.setClass(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
+
+
     }
 
 }

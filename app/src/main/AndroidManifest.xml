@@ -31,6 +31,8 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <application
+        android:usesCleartextTraffic="true"
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -57,7 +59,7 @@
         </activity>
         <activity
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:name=".LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

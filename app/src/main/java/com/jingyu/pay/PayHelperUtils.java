@@ -5,7 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class PayHelperUtils {
+
     // 存token
     public static void saveUserLoginToken(Context context, String token) {
         SharedPreferences.Editor edit = context.getSharedPreferences(Constant.LOGIN_USER_TOKEN, Context.MODE_PRIVATE).edit();
@@ -17,6 +22,19 @@ public class PayHelperUtils {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.LOGIN_USER_TOKEN, Context.MODE_PRIVATE);
 
         return sharedPreferences.getString(Constant.LOGIN_USER_TOKEN, "");
+    }
+
+    // 存api
+    public static void saveChangeAPI(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.CALL_API, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.CALL_API, token).apply();
+    }
+
+    public static String getChangeAPI(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.CALL_API, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.CALL_API, "");
     }
     // 存公告
     public static void saveUserInfoNews(Context context, String token) {
@@ -53,5 +71,26 @@ public class PayHelperUtils {
 
     }
 
+
+    public static String md5(String content) {
+        byte[] hash;
+        String newString = "2io#ejQO" +  content;
+        try {
+            hash = MessageDigest.getInstance("MD5").digest(newString.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("NoSuchAlgorithmException",e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("UnsupportedEncodingException", e);
+        }
+
+        StringBuilder hex = new StringBuilder(hash.length * 2);
+        for (byte b : hash) {
+            if ((b & 0xFF) < 0x10){
+                hex.append("0");
+            }
+            hex.append(Integer.toHexString(b & 0xFF));
+        }
+        return hex.toString();
+    }
 
 }

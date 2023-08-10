@@ -1,13 +1,17 @@
-package com.jingyu.pay.ui.home
+package com.jingyu.pay.ui.notifications
 
+import android.content.Context
 import android.util.Log
+import com.jingyu.pay.Constant
+import com.jingyu.pay.PayHelperUtils
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import java.io.Console
 import java.io.IOException
 
-class HomeDateModel {
+class PersonalDateModel {
 
 
     var BaseUrl : String = "https://api2.channel-sign.com/"
@@ -36,7 +40,8 @@ class HomeDateModel {
         })
 
     }
-    fun test(token:String,orderResponse: OrderResponse){
+    fun test(context: Context,token:String,orderResponse: OrderResponse){
+        Log.d("Jack","test");
 
         var jsonObject= JSONObject()
         jsonObject.put("token",token)
@@ -46,10 +51,10 @@ class HomeDateModel {
         val requestBody = jsonStr.toRequestBody(contentType)
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url(BaseUrl + "api/user/pendingPush?")
+            .url(Constant.API_URL + "api/user/userinfo?")
             .get()
             .header("content-type","application/json")
-            .header("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOiIxNjkwNTUxMzI4IiwiZXhwIjoxNjkwNzMxMzI4LCJpZCI6IjJiOTcyMjRhLWQ4M2MtNGQ5YS1iMjRhLWNkZWE4ZTA3ZjdmYyIsImxvZ2luSWQiOiJjZXNoaSIsImlwIjoiMTIyLjExNi4yMi40OCIsInJvbGVOYW1lIjoi5Lya5ZGYIiwiaXNzIjoiR29vZ2xlIiwiYXVkIjoid2ViIn0.Ni7vZrS2-T7TczFDqWbWdc6WxvrsFzGCDrO3WnT_4IA")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
