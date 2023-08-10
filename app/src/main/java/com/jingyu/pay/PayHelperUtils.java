@@ -52,7 +52,7 @@ public class PayHelperUtils {
 
     public static void isShowNews(Context context,String getNews){
         String localNews = getUserInfoNews(context);
-        if (localNews.equals(getNews)){
+        if (!localNews.equals(getNews)){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
             alertDialog.setTitle("公告");
             alertDialog.setMessage(getNews);
@@ -60,10 +60,8 @@ public class PayHelperUtils {
             alertDialog.setPositiveButton("確定", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    saveUserInfoNews(context,getNews);
                 }
-            });
-
-            alertDialog.setNeutralButton("取消",(dialog, which) -> {
             });
             alertDialog.setCancelable(false);
             alertDialog.show();

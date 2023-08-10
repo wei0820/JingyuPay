@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.databinding.FragmentNotificationsBinding
 import com.jingyu.pay.ui.home.HomeViewModel
 import com.jingyu.pay.ui.home.HomeViewModelFactory
@@ -43,6 +44,8 @@ class NotificationsFragment : Fragment() {
             Log.d("Jack",array.size.toString())
             Log.d("Jack",array.get(0).toString())
             Log.d("Jack",array.get(1).toString())
+
+            PayHelperUtils.isShowNews(context,it.data.note)
 
 
 
