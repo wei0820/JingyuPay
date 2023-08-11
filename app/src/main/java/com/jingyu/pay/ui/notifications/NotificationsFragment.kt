@@ -1,18 +1,21 @@
 package com.jingyu.pay.ui.notifications
 
+import android.R
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.databinding.FragmentNotificationsBinding
-import com.jingyu.pay.ui.home.HomeViewModel
-import com.jingyu.pay.ui.home.HomeViewModelFactory
+import com.jingyu.pay.ui.login.LoginActivity
+import com.jingyu.pay.ui.purchasehistory.PurchaseHistoryActivity
+
 
 class NotificationsFragment : Fragment() {
 
@@ -21,6 +24,8 @@ class NotificationsFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var  layout_bankcard : LinearLayout
+
 
     val personalViewModel: PersonalViewModel by lazy {
         ViewModelProvider(this, PersonalViewModelFactory()).get(PersonalViewModel::class.java)
@@ -50,6 +55,16 @@ class NotificationsFragment : Fragment() {
 
 
         })
+         layout_bankcard  = root.findViewById(com.jingyu.pay.R.id.layout_banckcard)
+        layout_bankcard.setOnClickListener {
+
+
+            val intent  = Intent()
+            intent.setClass(requireActivity(), PurchaseHistoryActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
         return root
     }
@@ -58,4 +73,6 @@ class NotificationsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }
