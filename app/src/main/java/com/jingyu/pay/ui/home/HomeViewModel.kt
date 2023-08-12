@@ -22,8 +22,8 @@ class HomeViewModel : ViewModel() {
 
 
 
-        fun getBuySetting(context: Context) : LiveData<StartBuyData> {
-            homeViewModel.setBuySetting(context, object : HomeDateModel.BuyResponse {
+        fun getBuySetting(context: Context,paymentlimit : String,paymentMax : String) : LiveData<StartBuyData> {
+            homeViewModel.setBuySetting(context,paymentlimit,paymentMax, object : HomeDateModel.BuyResponse {
                 override fun getResponse(s: String) {
                     viewModelScope.launch {
                         if (!s.isEmpty()) {

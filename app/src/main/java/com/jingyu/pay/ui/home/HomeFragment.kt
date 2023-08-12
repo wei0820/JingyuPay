@@ -45,10 +45,12 @@ class HomeFragment : Fragment() {
         val fab: FloatingActionButton = root.findViewById(R.id.normalFAB)
         val recyclerView: RecyclerView =  root.findViewById(R.id.recyclerView)
 
-        merchantOrdersViewModel.getBuySetting(requireActivity()).observe(requireActivity(), Observer {
+        merchantOrdersViewModel.getBuySetting(requireActivity(),"","").observe(requireActivity(), Observer {
 
         })
-
+        fab.setOnClickListener {
+            
+        }
         var recyclerViewData = ArrayList<String>()
         recyclerViewData.add("1")
         recyclerViewData.add("1")
