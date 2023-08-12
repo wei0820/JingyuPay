@@ -1,15 +1,11 @@
 package com.jingyu.pay.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jingyu.pay.AddBankCardDialog
+import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.R
 import com.jingyu.pay.ToastManager
 import com.jingyu.pay.databinding.FragmentHomeBinding
@@ -48,13 +45,23 @@ class HomeFragment : Fragment() {
         val fab: FloatingActionButton = root.findViewById(R.id.normalFAB)
         val recyclerView: RecyclerView =  root.findViewById(R.id.recyclerView)
 
-        merchantOrdersViewModel.getBuySetting(requireActivity(),"100","30000").observe(requireActivity(), Observer {
-
-        })
+        setBuySetting()
 
         getBuyDataList()
         fab.setOnClickListener {
-            
+            val dialog = AddBankCardDialog(activity)
+            dialog.setAddBankCallback {
+                if (it != null){
+                    if (it.code == 0){
+                        requireActivity().runOnUiThread {
+                            getBuyDataList()
+                            dialog.dismiss()
+                        }
+                    }
+                }
+
+            }
+            dialog.show()
         }
 
 
@@ -106,6 +113,22 @@ class HomeFragment : Fragment() {
         })
         return root
     }
+
+    fun setBuySetting(){
+        val maxString =
+            if (PayHelperUtils.getBuyMax(activity).isEmpty()) "1000" else PayHelperUtils.getBuyMax(
+                activity
+            )
+        val minString =
+            if (PayHelperUtils.getBuyMin(activity).isEmpty()) "300" else PayHelperUtils.getBuyMin(
+                activity
+            )
+
+        merchantOrdersViewModel.getBuySetting(requireActivity(),minString,maxString).observe(requireActivity(), Observer {
+
+        })
+    }
+
 
     fun getBuyDataList(){
         merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),

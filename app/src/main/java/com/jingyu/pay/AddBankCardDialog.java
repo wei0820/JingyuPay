@@ -12,14 +12,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 
+import com.google.gson.Gson;
+import com.jingyu.pay.ui.home.BuyData;
+import com.jingyu.pay.ui.home.HomeDateModel;
+import com.jingyu.pay.ui.home.StartBuyData;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,29 +34,31 @@ import java.util.List;
 
 public class AddBankCardDialog extends AlertDialog {
     private Activity activity;
-    private EditText bankCardNoEditText;
+    private EditText max,min;
     private Spinner spinner;
     private OnAddCallback onAddCallback;
-//    private OnAddBanKListCallback onAddBanKListCallback;
+    private OnAddBanKListCallback onAddBanKListCallback;
     private Dialog dialog;
+    private Switch aSwitch;
 
     private Handler handlerLoading = new Handler();
+    HomeDateModel homeDateModel = new HomeDateModel();
 
     public void setOnAddCallback(OnAddCallback onAddCallback) {
         this.onAddCallback = onAddCallback;
     }
 
-//    public  void  setAddBankCallback(OnAddBanKListCallback onAddBanKListCallback){
-//        this.onAddBanKListCallback = onAddBanKListCallback;
-//
-//    }
+    public  void  setAddBankCallback(OnAddBanKListCallback onAddBanKListCallback){
+        this.onAddBanKListCallback = onAddBanKListCallback;
+
+    }
 
     public interface OnAddCallback {
         void onAdd(String cardNo, String bankName, String bankCode);
     }
-//    public  interface  OnAddBanKListCallback{
-//        void onResponse(UpdateOnlineData addBankData);
-//    }
+    public  interface  OnAddBanKListCallback{
+        void onResponse(StartBuyData buyData);
+    }
 
     public AddBankCardDialog(Activity activity) {
         super(activity);
@@ -78,7 +86,32 @@ public class AddBankCardDialog extends AlertDialog {
         setCanceledOnTouchOutside(false);
         setCancelable(false);
 
-        bankCardNoEditText = findViewById(R.id.bank_card_no);
+        min = findViewById(R.id.bank_card);
+        max = findViewById(R.id.bank_card_no);
+        aSwitch = findViewById(R.id.switch1);
+        String maxString = PayHelperUtils.getBuyMax(activity).isEmpty() ? "" : PayHelperUtils.getBuyMax(activity);
+        String minString = PayHelperUtils.getBuyMin(activity).isEmpty() ? "" : PayHelperUtils.getBuyMin(activity);
+        String ischeckString =PayHelperUtils.getBuyIsOpen(activity) ? "买币已开启" : "买币已关闭";
+
+        boolean ischeck = PayHelperUtils.getBuyIsOpen(activity);
+        min.setText(minString);
+        max.setText(maxString);
+        aSwitch.setChecked(ischeck);
+        aSwitch.setText(ischeckString);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Log.d("Jack",b+"");
+                String ischeckString = b ? "买币已开启" : "买币已关闭";
+                aSwitch.setText(ischeckString);
+
+
+                PayHelperUtils.saveBuyIsOpen(activity,b);
+
+            }
+        });
+
+
 
         TextView message = findViewById(R.id.message);
 //        message.setText(Constant.getEnvironmentInfo().getMessage());
@@ -96,8 +129,42 @@ public class AddBankCardDialog extends AlertDialog {
             dismiss();
         });
 
-        view.findViewById(R.id.okBtn);
-    }
+        view.findViewById(R.id.okBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String minSt = min.getText().toString().isEmpty() ? "300" : min.getText().toString();
+                String maxSt = max.getText().toString().isEmpty() ? "1000": max.getText().toString();
 
+                PayHelperUtils.saveBuyMax(activity,maxSt);
+                PayHelperUtils.saveBuyMin(activity,minSt);
+
+
+
+                homeDateModel.setBuySetting(activity, minSt, maxSt, new HomeDateModel.BuyResponse() {
+                    @Override
+                    public void getResponse(@NonNull String s) {
+                        if (!s.isEmpty()){
+                            StartBuyData buyData = new Gson().fromJson(s, StartBuyData.class);
+                            if (buyData!=null){
+                                onAddBanKListCallback.onResponse(buyData);
+                                InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                if (inputMethodManager != null) {
+                                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                                }
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void getFailure(@NonNull String s) {
+
+                    }
+                });
+
+
+            }
+        });
+    }
 
 }

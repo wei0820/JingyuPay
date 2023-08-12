@@ -112,7 +112,7 @@
         ></EditText>
     <Button
         app:layout_constraintDimensionRatio="6:1"
-        android:background="@null"
+        android:background="@drawable/bg_login_radius"
         android:id="@+id/loginbtn"
         android:layout_marginTop="30dp"
         android:layout_marginRight="22dp"
