@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,12 +18,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jingyu.pay.AddBankCardDialog
 import com.jingyu.pay.R
+import com.jingyu.pay.ToastManager
 import com.jingyu.pay.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     var adapter: Adapter? = null
+    var buyDataList: ArrayList<BuyData.Data> = ArrayList()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -45,33 +48,23 @@ class HomeFragment : Fragment() {
         val fab: FloatingActionButton = root.findViewById(R.id.normalFAB)
         val recyclerView: RecyclerView =  root.findViewById(R.id.recyclerView)
 
-        merchantOrdersViewModel.getBuySetting(requireActivity(),"","").observe(requireActivity(), Observer {
+        merchantOrdersViewModel.getBuySetting(requireActivity(),"100","30000").observe(requireActivity(), Observer {
 
         })
+
+        getBuyDataList()
         fab.setOnClickListener {
             
         }
-        var recyclerViewData = ArrayList<String>()
-        recyclerViewData.add("1")
-        recyclerViewData.add("1")
-        recyclerViewData.add("1")
-        recyclerViewData.add("1")
-        recyclerViewData.add("1")
-        recyclerViewData.add("1")
-        recyclerViewData.add("1")
-        recyclerViewData.add("1")
-
-        recyclerViewData.add("1")
 
 
-
-        adapter = Adapter()
+        adapter = Adapter(this)
 
         // create a vertical layout manager
         val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
-        adapter!!.updateList(recyclerViewData)
+        adapter!!.updateList(buyDataList)
 
         recyclerView!!.adapter = adapter
 
@@ -114,6 +107,37 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    fun getBuyDataList(){
+        merchantOrdersViewModel.getBuyDataList(requireActivity()).observe(requireActivity(),
+            Observer {
+                buyDataList.clear()
+                if (it.code == 0){
+                    if (it.data!=null){
+                        for (datum in it.data) {
+                            buyDataList.add(datum)
+
+                            adapter!!.notifyDataSetChanged()
+                        }
+                        if (buyDataList.size<=0){
+                            adapter!!.notifyDataSetChanged()
+
+                        }
+                    }
+                }
+            })
+    }
+
+    fun  getPament(id:String){
+        merchantOrdersViewModel.getPaymentMatchingData(requireActivity(),id).observe(requireActivity(),
+            Observer {
+                if (it!=null){
+                    ToastManager.showToastCenter(requireActivity(),it.msg);
+                    getBuyDataList()
+                }
+            })
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -124,20 +148,27 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
-        var bankCardInfoList:ArrayList<String>? = null
+    class Adapter(fragment: HomeFragment) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+        var bankCardInfoList:ArrayList<BuyData.Data>? = null
+        var mfragment= fragment
 
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            var accountNo: TextView
-            var accountInfo: TextView
-            lateinit var orderbutton : Button
+            var bankName: TextView
+            var cardNo: TextView
+            var time: TextView
+            var amount: TextView
+            var orderno: TextView
+            var addButton : Button
 
 
             init {
-                accountNo = view.findViewById(R.id.accountNo)
-                accountInfo = view.findViewById(R.id.accountInfo)
-                orderbutton = view.findViewById(R.id.addbtn)
+                bankName = view.findViewById(R.id.bankname)
+                cardNo = view.findViewById(R.id.cardno)
+                time = view.findViewById(R.id.time)
+                amount = view.findViewById(R.id.amount)
+                orderno = view.findViewById(R.id.orderno)
+                addButton = view.findViewById(R.id.addbtn);
 
 
             }
@@ -150,14 +181,22 @@ class HomeFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val info = bankCardInfoList!!.get(position)
-            holder.orderbutton.text = "處理"
-            holder.accountNo.text  =info
-            holder.accountInfo.text = ""
+            val info: BuyData.Data = bankCardInfoList!!.get(position)
 
+            holder.bankName.text = info.bankName
+            holder.cardNo.text = info.cardId
+            holder.time.text = info.created
+            holder.amount.text = "￥"+info.score
+            holder.orderno.text = info.orderNo
+            holder.addButton.text = info.state
+            if (info.state.equals("已接单")){
+                holder.addButton.isEnabled = false
+            }else{
+                holder.addButton.setOnClickListener {
+                    mfragment.getPament(info.id);
 
-
-
+                }
+            }
 
         }
 
@@ -171,7 +210,7 @@ class HomeFragment : Fragment() {
 //          }
 
         //更新資料用
-        fun updateList(list:ArrayList<String>){
+        fun updateList(list:ArrayList<BuyData.Data>){
             bankCardInfoList = list
         }
     }

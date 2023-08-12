@@ -32,6 +32,7 @@ class HomeDateModel {
 
 
         val url: String = urlBuilder.build().toString()
+        Log.d("Jack",url)
 
         val requestBody = jsonStr.toRequestBody(contentType)
         val client = OkHttpClient()
@@ -55,6 +56,45 @@ class HomeDateModel {
 
     }
 
+
+
+
+    fun getPayment(context: Context,id : String,orderResponse: BuyResponse){
+
+        var jsonObject= JSONObject()
+        jsonObject.put("token","")
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+
+
+        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/PaymentMatching?").toHttpUrlOrNull()!!.newBuilder()
+        urlBuilder.addQueryParameter("id", id)
+
+
+        val url: String = urlBuilder.build().toString()
+        Log.d("Jack",url)
+
+        val requestBody = jsonStr.toRequestBody(contentType)
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(url)
+            .get()
+            .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.d("Jack",e.toString());
+
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                orderResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
+    }
 
 
 
