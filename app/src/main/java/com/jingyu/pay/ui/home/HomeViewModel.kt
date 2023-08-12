@@ -19,17 +19,19 @@ class HomeViewModel : ViewModel() {
     var homeViewModel = HomeDateModel()
     var  startBuy = MutableLiveData<StartBuyData>()
 
+    var  buyData = MutableLiveData<BuyData>()
+    var  mPaymentMatchingData = MutableLiveData<PaymentMatchingData>()
 
 
 
-        fun getBuySetting(context: Context,paymentlimit : String,paymentMax : String) : LiveData<StartBuyData> {
+
+    fun getBuySetting(context: Context,paymentlimit : String,paymentMax : String) : LiveData<StartBuyData> {
             homeViewModel.setBuySetting(context,paymentlimit,paymentMax, object : HomeDateModel.BuyResponse {
                 override fun getResponse(s: String) {
                     viewModelScope.launch {
                         if (!s.isEmpty()) {
                             var data = Gson().fromJson(s, StartBuyData::class.java)
-                            Log.d("Jack", data.msg)
-                            Log.d("Jack", data.data.toString())
+
                             startBuy.value = data
 
                         }
@@ -44,4 +46,44 @@ class HomeViewModel : ViewModel() {
 
 
         }
+
+
+    fun getBuyDataList(context: Context) : LiveData<BuyData>{
+        homeViewModel.getBuyOrederList(context,object : HomeDateModel.BuyResponse{
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+                        var data = Gson().fromJson(s,BuyData::class.java)
+                        buyData.value = data
+                    }
+                }
+            }
+
+            override fun getFailure(s: String) {
+            }
+
+        })
+        return  buyData
+    }
+
+    fun getPaymentMatchingData(context: Context,id : String) :LiveData<PaymentMatchingData>{
+        homeViewModel.getPayment(context,id,object : HomeDateModel.BuyResponse{
+            override fun getResponse(s: String) {
+
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+                        Log.d("Jack",s);
+                        var data = Gson().fromJson(s,PaymentMatchingData::class.java)
+                        mPaymentMatchingData.value = data
+                    }
+                }            }
+
+            override fun getFailure(s: String) {
+            }
+        })
+
+
+        return  mPaymentMatchingData
+    }
+
 }

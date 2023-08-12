@@ -91,4 +91,43 @@ public class PayHelperUtils {
         return hex.toString();
     }
 
+
+    // 存公告
+    public static void saveBuyMax(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.BUY_MAX, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.BUY_MAX, token).apply();
+    }
+
+    public static String getBuyMax(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.BUY_MAX, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.BUY_MAX, "");
+    }
+
+    public static void saveBuyMin(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.BUY_MIN, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.BUY_MIN, token).apply();
+    }
+
+    public static String getBuyMin(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.BUY_MIN, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.BUY_MIN, "");
+    }
+
+
+    public static void saveBuyIsOpen(Context context, boolean token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.BUY_ISOPEN, Context.MODE_PRIVATE).edit();
+        edit.putBoolean(Constant.BUY_ISOPEN, token).apply();
+    }
+
+    public static Boolean getBuyIsOpen(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.BUY_ISOPEN, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getBoolean(Constant.BUY_ISOPEN, true);
+    }
+
 }

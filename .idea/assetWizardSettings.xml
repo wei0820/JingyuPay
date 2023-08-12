@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$PROJECT_DIR$/../Library/Android/sdk/icons/material/materialicons/clear/baseline_clear_24.xml" />
+                                      <entry key="url" value="file:$PROJECT_DIR$/../Library/Android/sdk/icons/material/materialicons/settings/baseline_settings_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,7 +34,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="131313" />
-                            <entry key="outputName" value="ic_baseline_clear_24" />
+                            <entry key="outputName" value="ic_baseline_settings_24" />
                           </map>
                         </option>
                       </PersistentState>
