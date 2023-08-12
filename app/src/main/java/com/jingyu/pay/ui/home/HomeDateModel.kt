@@ -18,7 +18,7 @@ class HomeDateModel {
     var BaseUrl : String = Constant.API_URL
 
 
-    fun setBuySetting(context: Context,orderResponse: BuyResponse){
+    fun setBuySetting(context: Context,paymentlimit : String,paymentMax : String,orderResponse: BuyResponse){
 
         var jsonObject= JSONObject()
         jsonObject.put("token","")
@@ -27,8 +27,8 @@ class HomeDateModel {
 
 
         val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/PaymentQueue?").toHttpUrlOrNull()!!.newBuilder()
-        urlBuilder.addQueryParameter("Paymentlimit", "5000")
-        urlBuilder.addQueryParameter("PaymentMax", "10000")
+        urlBuilder.addQueryParameter("Paymentlimit", paymentlimit)
+        urlBuilder.addQueryParameter("PaymentMax", paymentMax)
 
 
         val url: String = urlBuilder.build().toString()
