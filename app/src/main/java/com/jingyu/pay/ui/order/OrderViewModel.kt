@@ -1,10 +1,11 @@
 package com.jingyu.pay.ui.order
 
-import android.util.Log
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class OrderViewModel : ViewModel() {
@@ -14,18 +15,20 @@ class OrderViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    var homeViewModel = OrderDateModel()
-    var  string = MutableLiveData<String>()
+    var  orderDateModel = OrderDateModel()
+    var  paymentMatchingData = MutableLiveData<PaymentMatchingData>()
 
 
-    fun  get() : LiveData<String>{
-        Log.d("Jack","get");
-
-        homeViewModel.test("", object : OrderDateModel.OrderResponse {
+    fun getPaymentMatching(context: Context) : LiveData<PaymentMatchingData>{
+        orderDateModel.getPaymentMatching(context, object : OrderDateModel.OrderResponse {
             override fun getResponse(s: String) {
-                Log.d("Jack",s);
                 viewModelScope.launch {
-                    string.value = s;
+                    if (!s.isEmpty()){
+                        var data = Gson().fromJson(s,PaymentMatchingData::class.java);
+                        if (data!=null){
+                            paymentMatchingData.value = data
+                        }
+                    }
                 }
             }
 
@@ -33,7 +36,7 @@ class OrderViewModel : ViewModel() {
             }
 
         })
-        return  string;
+        return paymentMatchingData;
     }
 
 }

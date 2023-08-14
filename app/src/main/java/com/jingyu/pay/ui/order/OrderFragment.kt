@@ -40,6 +40,11 @@ class OrderFragment : Fragment() {
         _binding = FragmentOrderBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        merchantOrdersViewModel.getPaymentMatching(requireActivity()).observe(requireActivity(),
+            Observer {
+                Log.d("Jack",it.msg);
+            })
+
 
 
 

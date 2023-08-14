@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".ui.buyrecord.BuyRecordActivity">
 
     <RelativeLayout
         android:id="@+id/daylayout"
@@ -17,13 +17,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <Switch
-            android:layout_centerInParent="true"
-            android:id="@+id/switch1"
+        <EditText
+
+            android:id="@+id/dayedt"
+            android:hint="11111"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"></EditText>
+        <Button
+            android:text="选择日期"
+            android:layout_marginLeft="24dp"
+            android:layout_toRightOf="@+id/dayedt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="卖币暂停接单" />
+            >
+        </Button>
 
     </RelativeLayout>
 

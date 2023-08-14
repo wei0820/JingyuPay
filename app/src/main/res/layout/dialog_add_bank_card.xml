@@ -21,7 +21,7 @@
             android:layout_height="40dp"
             android:background="@drawable/dialog_top_bar"
             android:gravity="center"
-            android:text="設定數值"
+            android:text="设定数值"
             android:textSize="18sp"
             android:textColor="@android:color/white" />
 
@@ -35,7 +35,7 @@
             android:lineSpacingExtra="3sp"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:text="請先輸入買幣範圍區間"/>
+            android:text="请先输入买币范围区间"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="買幣區間起" />
+                android:text="买币区间起" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                     android:layout_marginStart="15dp"
                     android:background="@drawable/bg_grey"
                     android:ellipsize="end"
-                    android:hint="預設300"
+                    android:hint="预设300"
                     android:paddingStart="10dp"
                     android:textSize="15sp"
                     android:inputType="number"
@@ -89,7 +89,7 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="買幣區間止" />
+                android:text="买币区间止" />
 
             <EditText
                 android:id="@+id/bank_card_no"
@@ -98,7 +98,7 @@
                 android:layout_marginStart="15dp"
                 android:background="@drawable/bg_grey"
                 android:ellipsize="end"
-                android:hint="預設1000"
+                android:hint="预设1000"
                 android:paddingStart="10dp"
                 android:textSize="15sp"
                 android:inputType="number"
@@ -149,7 +149,7 @@
                 android:layout_width="130dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="30dp"
-                android:text="設定"
+                android:text="设定"
                 android:textSize="18sp"
                 android:textColor="@android:color/white"
                 android:background="@drawable/shape_red_btn" />

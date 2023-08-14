@@ -8,23 +8,23 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.jingyu.pay.ui.home.HomeFragment"
-        android:label="買幣"
+        android:label="买币"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.jingyu.pay.ui.dashboard.DashboardFragment"
-        android:label="賣幣"
+        android:label="卖币"
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.jingyu.pay.ui.order.OrderFragment"
-        android:label="訂單"
+        android:label="进行中订单"
         tools:layout="@layout/fragment_order" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.jingyu.pay.ui.notifications.NotificationsFragment"
-        android:label="個人"
+        android:label="个人"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

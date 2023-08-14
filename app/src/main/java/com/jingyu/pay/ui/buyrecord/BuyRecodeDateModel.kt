@@ -1,7 +1,8 @@
-package com.jingyu.pay.ui.order
+package com.jingyu.pay.ui.buyrecord
 
 import android.content.Context
 import android.util.Log
+import com.jingyu.pay.Constant
 import com.jingyu.pay.PayHelperUtils
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -9,14 +10,11 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 
-class OrderDateModel {
+class BuyRecodeDateModel {
 
 
-    var BaseUrl : String = "https://api2.channel-sign.com/"
-
-    fun getPaymentMatching(context: Context, orderResponse: OrderResponse){
-        Log.d("Jack","test");
-
+    var BaseUrl : String = Constant.API_URL
+    fun getAccountChangeDate(context: Context,accountCahngeResponse: AccountCahngeResponse){
         var jsonObject= JSONObject()
         jsonObject.put("token","")
         var jsonStr=jsonObject.toString()
@@ -25,26 +23,24 @@ class OrderDateModel {
         val requestBody = jsonStr.toRequestBody(contentType)
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url(BaseUrl + "api/user/GetPaymentMatching")
+            .url(BaseUrl + "api/user/AccountChange")
             .get()
-            .header("content-type","application/json")
             .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .header("content-type","application/json")
             .build()
+
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-
             }
 
             override fun onResponse(call: Call, response: Response) {
-                orderResponse.getResponse( response.body?.string()!!)
+                accountCahngeResponse.getResponse( response.body?.string()!!)
             }
         })
 
     }
 
-
-    interface OrderResponse{
+    interface AccountCahngeResponse{
         fun getResponse(s : String)
-        fun getFailure(s: String)
     }
 }
