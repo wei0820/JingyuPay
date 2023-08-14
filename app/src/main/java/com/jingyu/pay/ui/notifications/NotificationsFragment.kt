@@ -50,6 +50,7 @@ class NotificationsFragment : Fragment() {
             Log.d("Jack",array.size.toString())
             Log.d("Jack",array.get(0).toString())
             Log.d("Jack",array.get(1).toString())
+            PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
 
             PayHelperUtils.isShowNews(context,it.data.note)
 

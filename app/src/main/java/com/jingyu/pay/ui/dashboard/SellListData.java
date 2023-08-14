@@ -24,8 +24,9 @@ public class SellListData {
         @SerializedName("cardNo") public  String cardNo;
         @SerializedName("bankName") public  String bankName;
 
-
     }
+
+
 
 
 }
