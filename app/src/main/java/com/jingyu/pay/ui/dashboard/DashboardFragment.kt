@@ -11,13 +11,17 @@ import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jingyu.pay.AddBankCardDialog
+import com.jingyu.pay.ConfirmOrderDialog
 import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.R
+import com.jingyu.pay.ToastManager
 import com.jingyu.pay.databinding.FragmentDashboardBinding
 import java.util.function.LongFunction
 
@@ -72,7 +76,6 @@ class DashboardFragment : Fragment() {
         recyclerView!!.adapter = adapter
 
         adapter!!.notifyDataSetChanged()
-        Log.d("Jack","onCreateView")
 
         return root
     }
@@ -124,6 +127,32 @@ class DashboardFragment : Fragment() {
 
 
     }
+    fun confirmOrder(data: SellListData.Data){
+
+            val dialog = ConfirmOrderDialog(requireActivity(),data)
+            dialog.setAddBankCallback {
+                if (it != null){
+                    if (it.code == 1){
+                        requireActivity().runOnUiThread {
+                            getList()
+                            dialog.dismiss()
+                            Toast.makeText(requireActivity(),"业务操作已完成",Toast.LENGTH_SHORT).show()
+
+                        }
+                    }else{
+                        requireActivity().runOnUiThread {
+                            getList()
+                            dialog.dismiss()
+                        }
+                    }
+
+                }
+
+            }
+            dialog.show()
+
+
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -169,6 +198,7 @@ class DashboardFragment : Fragment() {
             var userName : TextView
             var payName : TextView
             var cancelButton : Button
+            var sureButton  : Button
 
 
             init {
@@ -180,6 +210,8 @@ class DashboardFragment : Fragment() {
                 userName = view.findViewById(R.id.username)
                 payName = view.findViewById(R.id.payname);
                 cancelButton = view.findViewById(R.id.cancel_button)
+                sureButton = view.findViewById(R.id.sure_button)
+
 
             }
         }
@@ -206,6 +238,11 @@ class DashboardFragment : Fragment() {
                 Log.d("Jack",info.id)
                 mfragment.cancelToUrl(info.id);
             }
+
+            holder.sureButton.setOnClickListener {
+                mfragment.confirmOrder(info)
+            }
+
 
 
 

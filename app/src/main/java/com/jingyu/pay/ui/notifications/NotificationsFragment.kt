@@ -16,6 +16,7 @@ import com.jingyu.pay.databinding.FragmentNotificationsBinding
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
 import com.jingyu.pay.ui.login.LoginActivity
 import com.jingyu.pay.ui.purchasehistory.PurchaseHistoryActivity
+import com.jingyu.pay.ui.sellrecord.SellRecordActivity
 
 
 class NotificationsFragment : Fragment() {
@@ -62,7 +63,7 @@ class NotificationsFragment : Fragment() {
 
 
             val intent  = Intent()
-            intent.setClass(requireActivity(), AccountChangeActivity::class.java)
+            intent.setClass(requireActivity(), SellRecordActivity::class.java)
             startActivity(intent)
         }
 

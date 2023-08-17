@@ -24,6 +24,7 @@
             android:layout_width="220dp"
             android:layout_height="wrap_content"></EditText>
         <Button
+            android:id="@+id/okBtn"
             android:text="选择日期"
             android:layout_marginLeft="24dp"
             android:layout_toRightOf="@+id/dayedt"

@@ -1,46 +1,59 @@
-package com.jingyu.pay.ui.buyrecord
+package com.jingyu.pay.ui.sellrecord
 
 import android.content.Context
 import android.util.Log
 import com.jingyu.pay.Constant
 import com.jingyu.pay.PayHelperUtils
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 
-class BuyRecodeDateModel {
+class SellRecordDateModel {
 
 
     var BaseUrl : String = Constant.API_URL
-    fun getBuyRecordList(context: Context,accountCahngeResponse: AccountCahngeResponse){
+
+    fun getSellRecordData(context: Context,date: String, orderResponse: OrderResponse){
+        Log.d("Jack",date);
+
         var jsonObject= JSONObject()
         jsonObject.put("token","")
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
+
+
+        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/collection?").toHttpUrlOrNull()!!.newBuilder()
+        urlBuilder.addQueryParameter("date", date)
+        val url: String = urlBuilder.build().toString()
+        Log.d("Jack",url);
+
         //调用请求
         val requestBody = jsonStr.toRequestBody(contentType)
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url(BaseUrl + "api/user/AccountChange")
+            .url(url)
             .get()
-            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .header("content-type","application/json")
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
             .build()
-
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+
             }
 
             override fun onResponse(call: Call, response: Response) {
-                accountCahngeResponse.getResponse( response.body?.string()!!)
+                orderResponse.getResponse( response.body?.string()!!)
             }
         })
 
     }
 
-    interface AccountCahngeResponse{
+
+    interface OrderResponse{
         fun getResponse(s : String)
+        fun getFailure(s: String)
     }
 }

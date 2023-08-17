@@ -1,6 +1,7 @@
 package com.jingyu.pay.ui.dashboard
 
 import android.content.Context
+import android.util.Log
 import com.jingyu.pay.Constant
 import com.jingyu.pay.PayHelperUtils
 import okhttp3.*
@@ -92,6 +93,36 @@ class SellDateModel {
 
     }
 
+
+    fun setConfirmOrder(id : String , userName : String,context: Context, sellResponse: SellResponse){
+        var jsonObject= JSONObject()
+        jsonObject.put("id",id)
+        jsonObject.put("userName",userName)
+        Log.d("Jack", id)
+        Log.d("Jack", userName)
+
+        var jsonStr=jsonObject.toString()
+        val contentType: MediaType = "application/json".toMediaType()
+        //调用请求
+        val requestBody = jsonStr.toRequestBody(contentType)
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(BaseUrl + "api/user/confirm")
+            .post(requestBody)
+            .header("Authorization", "Bearer " + PayHelperUtils.getUserToken(context))
+            .header("content-type","application/json")
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                sellResponse.getResponse( response.body?.string()!!)
+            }
+        })
+
+    }
     interface SellResponse{
         fun getResponse(s : String)
     }

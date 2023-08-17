@@ -22,6 +22,7 @@ class SellViewModel : ViewModel() {
     var setCloseSellSettingData = MutableLiveData<CollectionQueueOffData>()
 
     var mSellListData = MutableLiveData<SellListData>()
+    var confirmData  = MutableLiveData<ConfirmData>()
 
 
     fun setSellSetting(context: Context) : LiveData<CollectionQueueData>{
@@ -105,11 +106,27 @@ class SellViewModel : ViewModel() {
 
         })
 
-
-
-
-
         return mSellListData
+
+    }
+
+    fun getComfirmOrder(id : String , userName : String,context: Context) :LiveData<ConfirmData>{
+        sellDateModel.setConfirmOrder(id,userName,context, object :SellDateModel.SellResponse {
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+
+                    if (!s.isEmpty()){
+                        var data = Gson().fromJson(s,ConfirmData::class.java)
+                        if (data!=null){
+                        }
+                    }
+                }
+            }
+
+        })
+
+
+        return  confirmData
 
     }
 

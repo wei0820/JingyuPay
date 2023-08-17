@@ -44,21 +44,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".TransactionActivity"
+            android:name=".ui.transaction.TransactionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SellRecordActivity"
+            android:name=".ui.sellrecord.SellRecordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".BuyRecordActivity"
+            android:name=".ui.buyrecord.BuyRecordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
