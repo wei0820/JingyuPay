@@ -9,7 +9,7 @@ public class BuyRecordData {
     @SerializedName("msg")
     public String msg;
     @SerializedName("data")
-    public Data data;
+    public Data[] data;
 
     public class Data {
         @SerializedName("id") public String id;

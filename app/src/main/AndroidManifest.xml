@@ -106,8 +106,7 @@
         </activity>
         <activity
             android:name=".ui.accountchange.AccountChangeActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

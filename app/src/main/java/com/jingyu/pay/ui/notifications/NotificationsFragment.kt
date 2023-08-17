@@ -14,9 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.databinding.FragmentNotificationsBinding
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
+import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
 import com.jingyu.pay.ui.login.LoginActivity
 import com.jingyu.pay.ui.purchasehistory.PurchaseHistoryActivity
 import com.jingyu.pay.ui.sellrecord.SellRecordActivity
+import com.jingyu.pay.ui.transaction.TransactionActivity
 
 
 class NotificationsFragment : Fragment() {
@@ -63,7 +65,7 @@ class NotificationsFragment : Fragment() {
 
 
             val intent  = Intent()
-            intent.setClass(requireActivity(), SellRecordActivity::class.java)
+            intent.setClass(requireActivity(), AccountChangeActivity::class.java)
             startActivity(intent)
         }
 
