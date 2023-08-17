@@ -1,4 +1,4 @@
-package com.jingyu.pay.ui.accountchange
+package com.jingyu.pay.ui.sellrecord
 
 import android.content.Context
 import android.util.Log
@@ -11,11 +11,13 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 
-class AccountChangeDateModel {
+class SellRecordDateModel {
 
 
     var BaseUrl : String = Constant.API_URL
-    fun getAccountChangeDate(context: Context,accountChange: AccountCahngeResponse){
+
+    fun getSellRecordData(context: Context,date: String, orderResponse: OrderResponse){
+        Log.d("Jack",date);
 
         var jsonObject= JSONObject()
         jsonObject.put("token","")
@@ -23,8 +25,8 @@ class AccountChangeDateModel {
         val contentType: MediaType = "application/json".toMediaType()
 
 
-        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/FrozenRecords?").toHttpUrlOrNull()!!.newBuilder()
-        urlBuilder.addQueryParameter("date", "")
+        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/collection?").toHttpUrlOrNull()!!.newBuilder()
+        urlBuilder.addQueryParameter("date", date)
         val url: String = urlBuilder.build().toString()
         Log.d("Jack",url);
 
@@ -43,13 +45,15 @@ class AccountChangeDateModel {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                accountChange.getResponse( response.body?.string()!!)
+                orderResponse.getResponse( response.body?.string()!!)
             }
         })
 
     }
 
-    interface AccountCahngeResponse{
+
+    interface OrderResponse{
         fun getResponse(s : String)
+        fun getFailure(s: String)
     }
 }

@@ -1,6 +1,7 @@
-package com.jingyu.pay.ui.accountchange
+package com.jingyu.pay.ui.buyrecord
 
 import android.app.DatePickerDialog
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,61 +9,56 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
-import android.widget.ImageButton
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jingyu.pay.R
-import com.jingyu.pay.databinding.ActivityAccountBinding
-
-import com.jingyu.pay.ui.notifications.PersonalViewModel
-import com.jingyu.pay.ui.notifications.PersonalViewModelFactory
-import com.jingyu.pay.ui.transaction.FrozenRecordsData
-import com.jingyu.pay.ui.transaction.FrozenRecordsViewModel
-import com.jingyu.pay.ui.transaction.FrozenRecordsViewModelFactory
+import com.jingyu.pay.ui.sellrecord.SellRecordData
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AccountChangeActivity: AppCompatActivity()  {
-
-    lateinit var  binding: ActivityAccountBinding;
+class BuyRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListener{
+    lateinit var dateTextView: TextView
+    lateinit var okButton: Button
+    lateinit var recyclerView: RecyclerView
+    val merchantOrdersViewModel: BuyRecordViewModel by lazy {
+        ViewModelProvider(this, BuyRecordViewModelFactory()).get(BuyRecordViewModel::class.java)
+    }
 
     var adapter: Adapter? = null
 
-    var buyDataList: ArrayList<AccountChange.Data> = ArrayList()
-
-
-    val accountChangeViewModel: AccountChangeViewModel by lazy {
-        ViewModelProvider(this, AccountChangeViewModelFactory()).get(AccountChangeViewModel::class.java)
-    }
+    var buyDataList: ArrayList<BuyRecordData.Data> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_buy_record)
+        dateTextView = findViewById(R.id.dayedt)
 
-        binding = ActivityAccountBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         title = "买币记录"
+        recyclerView = findViewById(R.id.recycler_view)
+        okButton = findViewById(R.id.datebtn)
+        okButton.setOnClickListener {
+
+            showDatePickerDialog()
+
+        }
+        dateTextView.text = getTodayTime()
 
         getList(getTodayTime().toString())
 
 
         adapter = Adapter()
 
-        binding.recyclerView!!.layoutManager = LinearLayoutManager(this)
+        recyclerView!!.layoutManager = LinearLayoutManager(this)
         adapter!!.updateList(buyDataList)
 
-        binding.recyclerView!!.adapter = adapter
+        recyclerView!!.adapter = adapter
 
         adapter!!.notifyDataSetChanged()
-
-
-
     }
 
     fun getList(s:String){
-        accountChangeViewModel.getAccountChangeData(this).observe(this, Observer {
+        merchantOrdersViewModel.getBuyRecordList(this,s).observe(this, androidx.lifecycle.Observer {
             buyDataList.clear()
             if (it.code == 0){
                 if (it.data!=null){
@@ -76,13 +72,19 @@ class AccountChangeActivity: AppCompatActivity()  {
 
                     }
                 }
-            }
-        })
-
-
+            }        })
     }
 
-
+    fun showDatePickerDialog() {
+        val datePickerDialog = DatePickerDialog(
+            this,
+            this,
+            Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.MONTH),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
     fun getTodayTime(): String? {
         //String dateformat = "yyyyMMdd"; 成果圖第一個日期顯示的格式
         val dateformat = "yyyy-MM-dd" //日期的格式(第二個)
@@ -90,10 +92,22 @@ class AccountChangeActivity: AppCompatActivity()  {
         val df = SimpleDateFormat(dateformat)
         return df.format(mCal.time)
     }
+    override fun onDateSet(p0: DatePicker?, year: Int, dayOfMonth: Int, month: Int) {
+        val date = "month/day/year: " + month.toString() + "/" + dayOfMonth.toString() + "/" + year
+        Log.d("Jack",date)
+        var string = year.toString()  +  "-" +(dayOfMonth+1).toString() + "-" + month.toString()
+        dateTextView.text = string
+
+        getList(string)
+
+
+
+    }
 
 }
+
 class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
-    var bankCardInfoList:ArrayList<AccountChange.Data>? = null
+    var bankCardInfoList:ArrayList<BuyRecordData.Data>? = null
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -122,19 +136,19 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.frozen_record_list_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.buy_record_list_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val info: AccountChange.Data = bankCardInfoList!!.get(position)
-        holder.orderN0.text = info.id
-        holder.bankName.text =  info.remark
-        holder.cardNo.text = info.created
-//        holder.time.text = info.created
-        holder.amount.text = "￥"+info.score
-        holder.cBankName.text = "￥"+info.quota.toString()
-        holder.cName.text = "￥"+info.quotaEnd.toString()
+        val info: BuyRecordData.Data = bankCardInfoList!!.get(position)
+        holder.orderN0.text = info.orderNo
+        holder.bankName.text =info.bankName
+        holder.cardNo.text = "卡号:" +  info.cardId
+        holder.time.text = info.created
+        holder.amount.text = "￥"+info.commission
+        holder.cBankName.text = info.subName
+        holder.cName.text = info.userName
 
 
 
@@ -146,7 +160,7 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
     }
 
     //更新資料用
-    fun updateList(list:ArrayList<AccountChange.Data>){
+    fun updateList(list:ArrayList<BuyRecordData.Data>){
         bankCardInfoList = list
     }
 

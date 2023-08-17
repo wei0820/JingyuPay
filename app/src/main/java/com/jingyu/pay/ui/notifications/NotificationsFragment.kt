@@ -14,8 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.databinding.FragmentNotificationsBinding
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
+import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
 import com.jingyu.pay.ui.login.LoginActivity
 import com.jingyu.pay.ui.purchasehistory.PurchaseHistoryActivity
+import com.jingyu.pay.ui.sellrecord.SellRecordActivity
+import com.jingyu.pay.ui.transaction.TransactionActivity
 
 
 class NotificationsFragment : Fragment() {
@@ -50,6 +53,7 @@ class NotificationsFragment : Fragment() {
             Log.d("Jack",array.size.toString())
             Log.d("Jack",array.get(0).toString())
             Log.d("Jack",array.get(1).toString())
+            PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
 
             PayHelperUtils.isShowNews(context,it.data.note)
 

@@ -129,5 +129,17 @@ public class PayHelperUtils {
 
         return sharedPreferences.getBoolean(Constant.BUY_ISOPEN, true);
     }
+    //外部url
+    public static void saveOpenUrl(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.OPEN_URL, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.OPEN_URL, token).apply();
+    }
+
+    public static String getOpenUrl(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.OPEN_URL, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.OPEN_URL, "");
+    }
 
 }

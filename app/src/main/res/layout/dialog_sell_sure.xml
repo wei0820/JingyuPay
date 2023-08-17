@@ -21,7 +21,7 @@
             android:layout_height="40dp"
             android:background="@drawable/dialog_top_bar"
             android:gravity="center"
-            android:text="设定数值"
+            android:text="订单确认"
             android:textSize="18sp"
             android:textColor="@android:color/white" />
 
@@ -35,7 +35,7 @@
             android:lineSpacingExtra="3sp"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:text="请先输入买币范围区间"/>
+            android:text="请谨慎操作!!"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="买币区间起" />
+                android:text="姓名最后一位" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                     android:layout_marginStart="15dp"
                     android:background="@drawable/bg_grey"
                     android:ellipsize="end"
-                    android:hint="预设300"
+                    android:hint=""
                     android:paddingStart="10dp"
                     android:textSize="15sp"
                     android:inputType="number"
@@ -89,39 +89,26 @@
                 android:gravity="center"
                 android:textSize="15sp"
                 android:textColor="@android:color/black"
-                android:text="买币区间止" />
+                android:text="金额" />
 
-            <EditText
-                android:id="@+id/bank_card_no"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/bg_grey"
-                android:ellipsize="end"
-                android:hint="预设1000"
-                android:paddingStart="10dp"
-                android:textSize="15sp"
-                android:inputType="number"
-                android:digits="1234567890"
-                android:imeOptions="actionDone"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="11dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-            <Switch
-                android:id="@+id/switch1"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="买币已关闭" />
+                android:layout_height="match_parent">
 
-
+                <EditText
+                    android:id="@+id/bank_card_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/bg_grey"
+                    android:ellipsize="end"
+                    android:hint=""
+                    android:paddingStart="10dp"
+                    android:textSize="15sp"
+                    android:inputType="number"
+                    android:digits="1234567890"
+                    android:imeOptions="actionDone"/>
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -136,6 +123,7 @@
             android:splitMotionEvents="false">
 
             <Button
+                android:visibility="gone"
                 android:id="@+id/closeBtn"
                 android:layout_width="130dp"
                 android:layout_height="40dp"
@@ -149,7 +137,7 @@
                 android:layout_width="130dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="30dp"
-                android:text="设定"
+                android:text="确认"
                 android:textSize="18sp"
                 android:textColor="@android:color/white"
                 android:background="@drawable/shape_red_btn" />

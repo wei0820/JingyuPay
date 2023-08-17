@@ -1,4 +1,4 @@
-package com.jingyu.pay.ui.accountchange
+package com.jingyu.pay.ui.buyrecord
 
 import android.content.Context
 import android.util.Log
@@ -11,11 +11,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 
-class AccountChangeDateModel {
+class BuyRecodeDateModel {
 
 
     var BaseUrl : String = Constant.API_URL
-    fun getAccountChangeDate(context: Context,accountChange: AccountCahngeResponse){
+    fun getBuyRecordList(context: Context,date :String,accountCahngeResponse: AccountCahngeResponse){
+        Log.d("Jack",date);
 
         var jsonObject= JSONObject()
         jsonObject.put("token","")
@@ -23,8 +24,8 @@ class AccountChangeDateModel {
         val contentType: MediaType = "application/json".toMediaType()
 
 
-        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/FrozenRecords?").toHttpUrlOrNull()!!.newBuilder()
-        urlBuilder.addQueryParameter("date", "")
+        val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/payment?").toHttpUrlOrNull()!!.newBuilder()
+        urlBuilder.addQueryParameter("date", date)
         val url: String = urlBuilder.build().toString()
         Log.d("Jack",url);
 
@@ -43,7 +44,7 @@ class AccountChangeDateModel {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                accountChange.getResponse( response.body?.string()!!)
+                accountCahngeResponse.getResponse( response.body?.string()!!)
             }
         })
 
