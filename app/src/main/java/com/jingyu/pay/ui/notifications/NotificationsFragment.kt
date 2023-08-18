@@ -1,6 +1,6 @@
 package com.jingyu.pay.ui.notifications
 
-import android.R
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,20 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.jingyu.pay.MainActivity
 import com.jingyu.pay.PayHelperUtils
+import com.jingyu.pay.R
 import com.jingyu.pay.databinding.FragmentNotificationsBinding
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
 import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
-import com.jingyu.pay.ui.login.LoginActivity
-import com.jingyu.pay.ui.purchasehistory.PurchaseHistoryActivity
 import com.jingyu.pay.ui.sellrecord.SellRecordActivity
 import com.jingyu.pay.ui.transaction.TransactionActivity
+import java.net.Inet4Address
 
-
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : Fragment() ,View.OnClickListener{
 
     private var _binding: FragmentNotificationsBinding? = null
 
@@ -29,6 +30,12 @@ class NotificationsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     lateinit var  layout_bankcard : LinearLayout
+
+    lateinit var  buy_record_layout : RelativeLayout
+    lateinit var  sell_record_layout : RelativeLayout
+    lateinit var  frozenrecord : RelativeLayout
+    lateinit var  account_layou : RelativeLayout
+
 
 
     val personalViewModel: PersonalViewModel by lazy {
@@ -60,7 +67,15 @@ class NotificationsFragment : Fragment() {
 
 
         })
-         layout_bankcard  = root.findViewById(com.jingyu.pay.R.id.layout_banckcard)
+
+         layout_bankcard  = root.findViewById(R.id.layout_banckcard)
+
+        buy_record_layout  = root.findViewById(R.id.buy_record_layout)
+        sell_record_layout  = root.findViewById(R.id.sell_record_layout)
+        frozenrecord  = root.findViewById(R.id.frozenrecord)
+        account_layou  = root.findViewById(R.id.account_layou)
+
+
         layout_bankcard.setOnClickListener {
 
 
@@ -68,6 +83,11 @@ class NotificationsFragment : Fragment() {
             intent.setClass(requireActivity(), AccountChangeActivity::class.java)
             startActivity(intent)
         }
+
+        buy_record_layout.setOnClickListener(this)
+        sell_record_layout.setOnClickListener(this)
+        frozenrecord.setOnClickListener(this)
+        account_layou.setOnClickListener(this)
 
 
 
@@ -77,6 +97,20 @@ class NotificationsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onClick(p0: View?) {
+        when(p0!!.id){
+            R.id.layout_banckcard -> startActivity(Intent().setClass(requireActivity(),AccountChangeActivity::class.java))
+            R.id.buy_record_layout -> startActivity(Intent().setClass(requireActivity(),BuyRecordActivity::class.java))
+            R.id.sell_record_layout ->startActivity(Intent().setClass(requireActivity(),SellRecordActivity::class.java))
+            R.id.frozenrecord ->startActivity(Intent().setClass(requireActivity(),TransactionActivity::class.java))
+            R.id.account_layou -> startActivity(Intent().setClass(requireActivity(),AccountChangeActivity::class.java))
+
+
+
+
+        }
     }
 
 

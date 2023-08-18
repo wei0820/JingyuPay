@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class BuyRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListen
     lateinit var dateTextView: TextView
     lateinit var okButton: Button
     lateinit var recyclerView: RecyclerView
+    lateinit var closebtn : ImageButton
     val merchantOrdersViewModel: BuyRecordViewModel by lazy {
         ViewModelProvider(this, BuyRecordViewModelFactory()).get(BuyRecordViewModel::class.java)
     }
@@ -37,6 +39,11 @@ class BuyRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListen
         title = "买币记录"
         recyclerView = findViewById(R.id.recycler_view)
         okButton = findViewById(R.id.datebtn)
+
+        closebtn = findViewById(R.id.closeBtn)
+        closebtn.setOnClickListener {
+            finish()
+        }
         okButton.setOnClickListener {
 
             showDatePickerDialog()

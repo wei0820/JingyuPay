@@ -341,6 +341,7 @@
                     android:layout_toRightOf="@+id/img3"
                     android:text="交易纪录"></TextView>
                 <RelativeLayout
+                    android:id="@+id/buy_record_layout"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"
@@ -372,6 +373,8 @@
                         ></ImageView>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/sell_record_layout"
+
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"
@@ -403,6 +406,7 @@
                         ></ImageView>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/frozenrecord"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"
@@ -434,6 +438,8 @@
                         ></ImageView>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/account_layou"
+
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"

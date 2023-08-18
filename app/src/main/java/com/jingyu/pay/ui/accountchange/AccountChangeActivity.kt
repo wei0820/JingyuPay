@@ -43,10 +43,13 @@ class AccountChangeActivity: AppCompatActivity()  {
 
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        title = "买币记录"
+        title = "余额帐变"
 
         getList(getTodayTime().toString())
 
+        binding.closeBtn.setOnClickListener {
+            finish()
+        }
 
         adapter = Adapter()
 
