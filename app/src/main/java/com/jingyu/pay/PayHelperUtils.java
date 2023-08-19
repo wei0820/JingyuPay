@@ -143,6 +143,28 @@ public class PayHelperUtils {
     }
 
 
+    public static void saveRebate(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_REBATE, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_REBATE, token).apply();
+    }
 
+    public static String getRebate(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_REBATE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_REBATE, "");
+    }
+
+    public static void savePaymentXeRebate(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_PAYMENTXEREBATE, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_PAYMENTXEREBATE, token).apply();
+    }
+
+    public static String getPaymentXeRebate(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_PAYMENTXEREBATE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_PAYMENTXEREBATE, "");
+    }
 
 }

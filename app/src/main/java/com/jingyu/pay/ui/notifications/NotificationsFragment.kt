@@ -18,6 +18,7 @@ import com.jingyu.pay.R
 import com.jingyu.pay.databinding.FragmentNotificationsBinding
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
 import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
+import com.jingyu.pay.ui.group.GroupListctivity
 import com.jingyu.pay.ui.sellrecord.SellRecordActivity
 import com.jingyu.pay.ui.transaction.TransactionActivity
 import java.net.Inet4Address
@@ -35,6 +36,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var  sell_record_layout : RelativeLayout
     lateinit var  frozenrecord : RelativeLayout
     lateinit var  account_layou : RelativeLayout
+
+    lateinit var layout_grouplist :RelativeLayout
 
 
 
@@ -64,6 +67,9 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
             PayHelperUtils.isShowNews(context,it.data.note)
 
+            PayHelperUtils.saveRebate(context,it.data.rebate.toString())
+            PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
+
 
 
         })
@@ -74,7 +80,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         sell_record_layout  = root.findViewById(R.id.sell_record_layout)
         frozenrecord  = root.findViewById(R.id.frozenrecord)
         account_layou  = root.findViewById(R.id.account_layou)
-
+        layout_grouplist = root.findViewById(R.id.layout_grouplist)
 
         layout_bankcard.setOnClickListener {
 
@@ -88,7 +94,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         sell_record_layout.setOnClickListener(this)
         frozenrecord.setOnClickListener(this)
         account_layou.setOnClickListener(this)
-
+        layout_grouplist.setOnClickListener(this)
 
 
         return root
@@ -106,7 +112,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             R.id.sell_record_layout ->startActivity(Intent().setClass(requireActivity(),SellRecordActivity::class.java))
             R.id.frozenrecord ->startActivity(Intent().setClass(requireActivity(),TransactionActivity::class.java))
             R.id.account_layou -> startActivity(Intent().setClass(requireActivity(),AccountChangeActivity::class.java))
-
+            R.id.layout_grouplist -> startActivity(Intent().setClass(requireActivity(),GroupListctivity::class.java))
 
 
 

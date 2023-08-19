@@ -15,7 +15,27 @@ class GroupViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
     var groupDateModel = GroupDateModel()
+    var groupListData = MutableLiveData<GroupListData>()
 
 
+
+    fun getGroupList(context: Context) : LiveData<GroupListData>{
+        groupDateModel.getGroupTimeList(context, object : GroupDateModel.GroupResponse {
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if(!s.isEmpty()){
+                        var data = Gson().fromJson(s,GroupListData::class.java)
+                        if (data !=null){
+                            groupListData.value = data
+                        }
+                    }
+                }
+
+
+            }
+
+        })
+        return groupListData;
+    }
 
 }

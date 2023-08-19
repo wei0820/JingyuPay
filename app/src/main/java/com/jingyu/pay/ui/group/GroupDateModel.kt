@@ -156,8 +156,8 @@ class GroupDateModel {
     fun getGroupRegister(context: Context,LoginId:String,
                          PassWord:String,
                          Tel:String,
-                         Rebate:String,
-                         PaymentXeRebate:String,
+                         Rebate:Double,
+                         PaymentXeRebate:Double,
                          groupResponse: GroupResponse){
 
         var jsonObject= JSONObject()

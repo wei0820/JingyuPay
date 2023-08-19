@@ -27,7 +27,6 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    var addbutton : Button? = null
 
     val merchantOrdersViewModel: HomeViewModel by lazy {
         ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
@@ -66,9 +65,6 @@ class HomeFragment : Fragment() {
 
 
         adapter = Adapter(this)
-
-        // create a vertical layout manager
-        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
         adapter!!.updateList(buyDataList)
