@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         }
         loginViewModel.getUserToken("ceshi","1b8bc9a66a77dcf8208a7146c4d23ae8","395039").observe(this, Observer {
             PayHelperUtils.saveUserLoginToken(this,it.data.token)
-            Log.d("Jack",it.data.token)
+            PayHelperUtils.saveUserLoginName(this,"ceshi")
 
         })
 

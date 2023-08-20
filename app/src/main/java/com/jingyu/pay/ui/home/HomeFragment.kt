@@ -223,11 +223,6 @@ class HomeFragment : Fragment() {
             return bankCardInfoList!!.size
         }
 
-//          //更新資料用
-//          fun updateList(list:List<String>){
-//              bankCardInfoList = list
-//          }
-
         //更新資料用
         fun updateList(list:ArrayList<BuyData.Data>){
             bankCardInfoList = list

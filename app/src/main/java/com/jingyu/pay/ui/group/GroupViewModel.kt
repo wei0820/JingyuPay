@@ -16,6 +16,8 @@ class GroupViewModel : ViewModel() {
     val text: LiveData<String> = _text
     var groupDateModel = GroupDateModel()
     var groupListData = MutableLiveData<GroupListData>()
+    var groupRepostData = MutableLiveData<ReportsData>()
+    var mReportsTeamData = MutableLiveData<ReportsTeamData>()
 
 
 
@@ -36,6 +38,47 @@ class GroupViewModel : ViewModel() {
 
         })
         return groupListData;
+    }
+
+    fun getReport(context: Context, id : String,day : String) : LiveData<ReportsData>{
+
+        groupDateModel.getGroupReportsList(context,id,day, object :GroupDateModel.GroupResponse {
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+                        var data = Gson().fromJson(s,ReportsData::class.java)
+                        if (data != null){
+                            groupRepostData.value = data
+
+                        }
+                    }
+                }
+            }
+
+        })
+
+
+        return  groupRepostData
+    }
+
+    fun getReportTime(context: Context, id : String,day : String) : LiveData<ReportsTeamData>{
+
+        groupDateModel.getGroupReportsTeamList(context,id,day, object :GroupDateModel.GroupResponse {
+            override fun getResponse(s: String) {
+                viewModelScope.launch {
+                    if (!s.isEmpty()){
+                        var data = Gson().fromJson(s,ReportsTeamData::class.java)
+                        if (data != null){
+                            mReportsTeamData.value = data
+
+                        }
+                    }
+                }
+            }
+
+
+        })
+        return mReportsTeamData;
     }
 
 }

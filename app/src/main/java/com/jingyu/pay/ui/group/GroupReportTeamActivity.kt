@@ -1,9 +1,7 @@
 package com.jingyu.pay.ui.group
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,19 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.R
 import com.jingyu.pay.ui.home.BuyData
 import com.jingyu.pay.ui.home.HomeFragment
 import org.w3c.dom.Text
 
-class GroupReportActivity : AppCompatActivity() {
+class GroupReportTeamActivity : AppCompatActivity() {
     lateinit var closebtn : ImageButton
     lateinit var group : RadioGroup
     lateinit var rb_yestoday : RadioButton
@@ -37,7 +32,7 @@ class GroupReportActivity : AppCompatActivity() {
     lateinit var  Text4 : TextView
     lateinit var  Text5 : TextView
     lateinit var  Text6 : TextView
-    lateinit var  mName : TextView
+    lateinit var name : TextView
     var adapter: Adapter? = null
     var buyDataList: ArrayList<ReportsTeamData.Data> = ArrayList()
 
@@ -56,19 +51,20 @@ class GroupReportActivity : AppCompatActivity() {
         Text4 = findViewById(R.id.text4)
         Text5 = findViewById(R.id.text5)
         Text6 = findViewById(R.id.text6)
-        mName = findViewById(R.id.name)
-        mName.text = PayHelperUtils.getUserName(this)
-        getReport("","0")
+        name = findViewById(R.id.name)
+
+//        getReport("","0")
+        getData("0")
         closebtn.setOnClickListener {
             finish()
         }
         group.setOnCheckedChangeListener { radioGroup, i ->
             when(i){
                 R.id.rb_yestday ->
-                    getReport("","-1")
+                    getData("-1")
 
                 R.id.rb_today ->
-                    getReport("","0")
+                    getData("0")
 
 
             }
@@ -76,7 +72,7 @@ class GroupReportActivity : AppCompatActivity() {
 
         }
         val recyclerView: RecyclerView =  findViewById(R.id.recycler_view)
-        adapter = Adapter(this)
+        adapter = Adapter()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter!!.updateList(buyDataList)
@@ -85,6 +81,15 @@ class GroupReportActivity : AppCompatActivity() {
 
         adapter!!.notifyDataSetChanged()
 
+
+    }
+    fun  getData(day : String){
+
+        var accountId =   intent.getStringExtra("accountId")
+        var loginId =   intent.getStringExtra("loginId")
+        name.text = loginId
+
+        getReport(accountId!!,day)
 
     }
 
@@ -105,15 +110,6 @@ class GroupReportActivity : AppCompatActivity() {
 
         getReportTeam(id,day)
 
-    }
-    fun toActivity(info :ReportsTeamData.Data){
-        var intent = Intent();
-        var bundle = Bundle()
-        bundle.putString("accountId",info.accountId)
-        bundle.putString("loginId",info.loginId)
-        intent.putExtras(bundle)
-        intent.setClass(this,GroupReportTeamActivity::class.java)
-        startActivity(intent)
     }
     fun getReportTeam(id : String, day : String){
         groupViewModel.getReportTime(this,id,day).observe(this, Observer {
@@ -137,9 +133,9 @@ class GroupReportActivity : AppCompatActivity() {
         })
     }
 
-    class Adapter(activity: Activity) : RecyclerView.Adapter<Adapter.ViewHolder>() {
+    class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
         var bankCardInfoList:ArrayList<ReportsTeamData.Data>? = null
-        var mActivity  = activity
+
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             var bankName: TextView
@@ -180,20 +176,6 @@ class GroupReportActivity : AppCompatActivity() {
             holder.orderno.text = "佣金:"+info.commission.toString()
             holder.cardNo.text = "小额买币:"+info.paymentXe.toString()
             holder.paymentxe.text = "小额买币笔数:"+info.paymentXeQty.toString()
-
-            holder.addButton.setOnClickListener {
-
-                if (info!=null){
-                    var intent = Intent();
-                    var bundle = Bundle()
-                    bundle.putString("accountId",info.accountId)
-                    bundle.putString("loginId",info.loginId)
-                    intent.putExtras(bundle)
-                    intent.setClass(mActivity,GroupReportTeamActivity::class.java)
-                    mActivity.startActivity(intent)
-                }
-
-            }
 
 
         }

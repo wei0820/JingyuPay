@@ -19,6 +19,7 @@ import com.jingyu.pay.databinding.FragmentNotificationsBinding
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
 import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
 import com.jingyu.pay.ui.group.GroupListctivity
+import com.jingyu.pay.ui.group.GroupReportActivity
 import com.jingyu.pay.ui.sellrecord.SellRecordActivity
 import com.jingyu.pay.ui.transaction.TransactionActivity
 import java.net.Inet4Address
@@ -38,6 +39,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var  account_layou : RelativeLayout
 
     lateinit var layout_grouplist :RelativeLayout
+    lateinit var layout_groupreport : RelativeLayout
 
 
 
@@ -72,6 +74,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
 
 
+
         })
 
          layout_bankcard  = root.findViewById(R.id.layout_banckcard)
@@ -81,7 +84,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         frozenrecord  = root.findViewById(R.id.frozenrecord)
         account_layou  = root.findViewById(R.id.account_layou)
         layout_grouplist = root.findViewById(R.id.layout_grouplist)
-
+        layout_groupreport = root.findViewById(R.id.layout_groupreport)
         layout_bankcard.setOnClickListener {
 
 
@@ -96,7 +99,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         account_layou.setOnClickListener(this)
         layout_grouplist.setOnClickListener(this)
 
-
+        layout_groupreport.setOnClickListener(this)
         return root
     }
 
@@ -113,7 +116,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             R.id.frozenrecord ->startActivity(Intent().setClass(requireActivity(),TransactionActivity::class.java))
             R.id.account_layou -> startActivity(Intent().setClass(requireActivity(),AccountChangeActivity::class.java))
             R.id.layout_grouplist -> startActivity(Intent().setClass(requireActivity(),GroupListctivity::class.java))
-
+            R.id.layout_groupreport ->startActivity(Intent().setClass(requireActivity(),GroupReportActivity::class.java))
 
 
         }

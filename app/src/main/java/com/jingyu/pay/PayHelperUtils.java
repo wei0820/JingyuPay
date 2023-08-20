@@ -11,6 +11,22 @@ import java.security.NoSuchAlgorithmException;
 
 public class PayHelperUtils {
 
+
+
+    // 存token
+    public static void saveUserLoginName(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.LOGIN_USER_NAME, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.LOGIN_USER_NAME, token).apply();
+    }
+
+    public static String getUserName(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.LOGIN_USER_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.LOGIN_USER_NAME, "");
+    }
+
+
     // 存token
     public static void saveUserLoginToken(Context context, String token) {
         SharedPreferences.Editor edit = context.getSharedPreferences(Constant.LOGIN_USER_TOKEN, Context.MODE_PRIVATE).edit();

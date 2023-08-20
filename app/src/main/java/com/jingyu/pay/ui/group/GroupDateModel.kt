@@ -57,8 +57,8 @@ class GroupDateModel {
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
         val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/Reports?").toHttpUrlOrNull()!!.newBuilder()
-        urlBuilder.addQueryParameter("id", "")
-        urlBuilder.addQueryParameter("day", "")
+        urlBuilder.addQueryParameter("id", id)
+        urlBuilder.addQueryParameter("day", day)
         val url: String = urlBuilder.build().toString()
         Log.d("Jack",url);
 
@@ -91,8 +91,8 @@ class GroupDateModel {
         var jsonStr=jsonObject.toString()
         val contentType: MediaType = "application/json".toMediaType()
         val urlBuilder: HttpUrl.Builder = (BaseUrl + "api/user/ReportsTeam?").toHttpUrlOrNull()!!.newBuilder()
-        urlBuilder.addQueryParameter("id", "")
-        urlBuilder.addQueryParameter("day", "")
+        urlBuilder.addQueryParameter("id", id)
+        urlBuilder.addQueryParameter("day", day)
         val url: String = urlBuilder.build().toString()
         Log.d("Jack",url);
 

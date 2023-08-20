@@ -266,6 +266,7 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/layout_groupreport"
 
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp"

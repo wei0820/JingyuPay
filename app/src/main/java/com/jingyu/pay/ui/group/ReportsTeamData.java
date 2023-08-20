@@ -6,7 +6,7 @@ public class ReportsTeamData {
 
     @SerializedName("code") public  int code;
     @SerializedName("msg") public  String msg;
-    @SerializedName("data") public  Data data;
+    @SerializedName("data") public  Data[] data;
 
     public class  Data{
         @SerializedName("accountId") public  String accountId;
