@@ -187,7 +187,6 @@
 
             <LinearLayout
                 android:layout_marginTop="12dp"
-                android:id="@+id/layout_banckcard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -488,6 +487,7 @@
                     android:layout_toRightOf="@+id/img3"
                     android:text="银行卡"></TextView>
                 <RelativeLayout
+                    android:id="@+id/banklayout"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="8dp"

@@ -13,10 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.jingyu.pay.AddBankCardDialog
 import com.jingyu.pay.R
 import com.jingyu.pay.ToastManager
-import org.w3c.dom.Text
 
 
 class GroupListctivity : AppCompatActivity() {

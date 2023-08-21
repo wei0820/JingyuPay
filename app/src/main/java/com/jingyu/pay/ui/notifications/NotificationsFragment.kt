@@ -17,6 +17,7 @@ import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.R
 import com.jingyu.pay.databinding.FragmentNotificationsBinding
 import com.jingyu.pay.ui.accountchange.AccountChangeActivity
+import com.jingyu.pay.ui.bankcard.BankCardListActivity
 import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
 import com.jingyu.pay.ui.group.GroupListctivity
 import com.jingyu.pay.ui.group.GroupReportActivity
@@ -40,6 +41,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
     lateinit var layout_grouplist :RelativeLayout
     lateinit var layout_groupreport : RelativeLayout
+    lateinit var banklayout : RelativeLayout
 
 
 
@@ -59,12 +61,9 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         val root: View = binding.root
 
         personalViewModel.get(requireActivity()).observe(requireActivity(), Observer {
-            Log.d("Jack",it.data.note)
-            Log.d("Jack",it.data.apIs)
+
             var array = it.data.apIs.split("|");
-            Log.d("Jack",array.size.toString())
-            Log.d("Jack",array.get(0).toString())
-            Log.d("Jack",array.get(1).toString())
+
             PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
 
             PayHelperUtils.isShowNews(context,it.data.note)
@@ -77,22 +76,13 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
         })
 
-         layout_bankcard  = root.findViewById(R.id.layout_banckcard)
-
         buy_record_layout  = root.findViewById(R.id.buy_record_layout)
         sell_record_layout  = root.findViewById(R.id.sell_record_layout)
         frozenrecord  = root.findViewById(R.id.frozenrecord)
         account_layou  = root.findViewById(R.id.account_layou)
         layout_grouplist = root.findViewById(R.id.layout_grouplist)
         layout_groupreport = root.findViewById(R.id.layout_groupreport)
-        layout_bankcard.setOnClickListener {
-
-
-            val intent  = Intent()
-            intent.setClass(requireActivity(), AccountChangeActivity::class.java)
-            startActivity(intent)
-        }
-
+        banklayout = root.findViewById(R.id.banklayout)
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
         frozenrecord.setOnClickListener(this)
@@ -100,6 +90,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         layout_grouplist.setOnClickListener(this)
 
         layout_groupreport.setOnClickListener(this)
+        banklayout.setOnClickListener(this)
         return root
     }
 
@@ -110,14 +101,13 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
     override fun onClick(p0: View?) {
         when(p0!!.id){
-            R.id.layout_banckcard -> startActivity(Intent().setClass(requireActivity(),AccountChangeActivity::class.java))
             R.id.buy_record_layout -> startActivity(Intent().setClass(requireActivity(),BuyRecordActivity::class.java))
             R.id.sell_record_layout ->startActivity(Intent().setClass(requireActivity(),SellRecordActivity::class.java))
             R.id.frozenrecord ->startActivity(Intent().setClass(requireActivity(),TransactionActivity::class.java))
             R.id.account_layou -> startActivity(Intent().setClass(requireActivity(),AccountChangeActivity::class.java))
             R.id.layout_grouplist -> startActivity(Intent().setClass(requireActivity(),GroupListctivity::class.java))
             R.id.layout_groupreport ->startActivity(Intent().setClass(requireActivity(),GroupReportActivity::class.java))
-
+            R.id.banklayout ->startActivity(Intent().setClass(requireActivity(),BankCardListActivity::class.java))
 
         }
     }

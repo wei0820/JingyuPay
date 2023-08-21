@@ -17,13 +17,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jingyu.pay.AddBankCardDialog
 import com.jingyu.pay.ConfirmOrderDialog
 import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.R
-import com.jingyu.pay.ToastManager
 import com.jingyu.pay.databinding.FragmentDashboardBinding
-import java.util.function.LongFunction
 
 
 class DashboardFragment : Fragment() {

@@ -11,28 +11,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 
 import com.google.gson.Gson;
-import com.jingyu.pay.ui.home.BuyData;
 import com.jingyu.pay.ui.home.HomeDateModel;
 import com.jingyu.pay.ui.home.StartBuyData;
 
-import java.io.IOException;
-import java.util.List;
 
 
-
-public class AddBankCardDialog extends AlertDialog {
+public class AddBuySettingDilog extends AlertDialog {
     private Activity activity;
     private EditText max,min;
     private Spinner spinner;
@@ -60,17 +54,17 @@ public class AddBankCardDialog extends AlertDialog {
         void onResponse(StartBuyData buyData);
     }
 
-    public AddBankCardDialog(Activity activity) {
+    public AddBuySettingDilog(Activity activity) {
         super(activity);
         this.activity = activity;
     }
 
 
-    protected AddBankCardDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected AddBuySettingDilog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
-    protected AddBankCardDialog(Context context, int themeResId) {
+    protected AddBuySettingDilog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
