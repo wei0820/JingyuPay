@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +22,7 @@ import com.jingyu.pay.ui.bankcard.BankCardListActivity
 import com.jingyu.pay.ui.buyrecord.BuyRecordActivity
 import com.jingyu.pay.ui.group.GroupListctivity
 import com.jingyu.pay.ui.group.GroupReportActivity
+import com.jingyu.pay.ui.group.ReportDayActivity
 import com.jingyu.pay.ui.sellrecord.SellRecordActivity
 import com.jingyu.pay.ui.transaction.TransactionActivity
 import java.net.Inet4Address
@@ -42,6 +44,13 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
     lateinit var layout_grouplist :RelativeLayout
     lateinit var layout_groupreport : RelativeLayout
     lateinit var banklayout : RelativeLayout
+    lateinit var reportday_layout :RelativeLayout
+    lateinit var text1 :TextView
+    lateinit var text2:TextView
+    lateinit var text3 :TextView
+    lateinit var text4 :TextView
+    lateinit var text5 :TextView
+    lateinit var name :TextView
 
 
 
@@ -70,12 +79,22 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
             PayHelperUtils.saveRebate(context,it.data.rebate.toString())
             PayHelperUtils.savePaymentXeRebate(context,it.data.paymentXeRebate.toString())
-
+            text1.text = it.data.commission.toString()
+            text2.text = it.data.quota.toString()
+            text3.text = it.data.frozen.toString()
+            text4.text = it.data.payment.toString()
+            text5.text = it.data.collection.toString()
+            name.text=  PayHelperUtils.getUserName(context)
 
 
 
         })
-
+        text1 = root.findViewById(R.id.text1)
+        text2 = root.findViewById(R.id.text2)
+        text3 = root.findViewById(R.id.text3)
+        text4 = root.findViewById(R.id.text4)
+        text5 = root.findViewById(R.id.text5)
+        name = root.findViewById(R.id.nav_text)
         buy_record_layout  = root.findViewById(R.id.buy_record_layout)
         sell_record_layout  = root.findViewById(R.id.sell_record_layout)
         frozenrecord  = root.findViewById(R.id.frozenrecord)
@@ -83,6 +102,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
         layout_grouplist = root.findViewById(R.id.layout_grouplist)
         layout_groupreport = root.findViewById(R.id.layout_groupreport)
         banklayout = root.findViewById(R.id.banklayout)
+        reportday_layout = root.findViewById(R.id.reportday_layout)
         buy_record_layout.setOnClickListener(this)
         sell_record_layout.setOnClickListener(this)
         frozenrecord.setOnClickListener(this)
@@ -91,6 +111,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
         layout_groupreport.setOnClickListener(this)
         banklayout.setOnClickListener(this)
+        reportday_layout.setOnClickListener(this)
         return root
     }
 
@@ -108,7 +129,7 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
             R.id.layout_grouplist -> startActivity(Intent().setClass(requireActivity(),GroupListctivity::class.java))
             R.id.layout_groupreport ->startActivity(Intent().setClass(requireActivity(),GroupReportActivity::class.java))
             R.id.banklayout ->startActivity(Intent().setClass(requireActivity(),BankCardListActivity::class.java))
-
+            R.id.reportday_layout->startActivity(Intent().setClass(requireActivity(),ReportDayActivity::class.java))
         }
     }
 

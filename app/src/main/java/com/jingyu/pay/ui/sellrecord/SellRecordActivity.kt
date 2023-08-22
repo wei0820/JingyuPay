@@ -90,7 +90,8 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
 
                     }
                 }
-            }        })
+            }
+        })
     }
 
     fun showDatePickerDialog() {

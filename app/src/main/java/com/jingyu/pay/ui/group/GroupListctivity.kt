@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +26,7 @@ class GroupListctivity : AppCompatActivity() {
     val groupViewModel: GroupViewModel by lazy {
         ViewModelProvider(this, GroupViewModelFactory()).get(GroupViewModel::class.java)
     }
+    lateinit var  close : ImageButton
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +35,10 @@ class GroupListctivity : AppCompatActivity() {
         title = "团队成员"
          fab  = findViewById(R.id.normalFAB)
          recyclerView =  findViewById(R.id.recyclerView)
+        close = findViewById(R.id.closeBtn)
+        close.setOnClickListener {
+            finish()
+        }
         getGroupList()
         adapter = Adapter()
 

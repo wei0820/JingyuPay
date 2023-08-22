@@ -6,7 +6,7 @@ public class ReportDayData {
 
     @SerializedName("code") public  int code;
     @SerializedName("msg") public  String msg;
-    @SerializedName("data") public  Data data;
+    @SerializedName("data") public  Data[] data;
 
     public class  Data{
         @SerializedName("id") public  String id;

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
@@ -18,7 +19,7 @@ import com.jingyu.pay.ToastManager
 import com.jingyu.pay.ui.group.*
 
 class BankCardListActivity : AppCompatActivity() {
-
+    lateinit var  close :ImageButton
     lateinit var fab: FloatingActionButton
     lateinit  var recyclerView: RecyclerView
     var adapter: Adapter? = null
@@ -33,6 +34,10 @@ class BankCardListActivity : AppCompatActivity() {
         title = "银行卡"
         fab  = findViewById(R.id.normalFAB)
         recyclerView =  findViewById(R.id.recyclerView)
+        close = findViewById(R.id.closeBtn)
+        close.setOnClickListener {
+            finish()
+        }
         getBankCardList()
         adapter = Adapter(this)
 
