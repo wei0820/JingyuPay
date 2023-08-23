@@ -11,6 +11,22 @@ import java.security.NoSuchAlgorithmException;
 
 public class PayHelperUtils {
 
+
+
+    // 存token
+    public static void saveUserLoginName(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.LOGIN_USER_NAME, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.LOGIN_USER_NAME, token).apply();
+    }
+
+    public static String getUserName(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.LOGIN_USER_NAME, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.LOGIN_USER_NAME, "");
+    }
+
+
     // 存token
     public static void saveUserLoginToken(Context context, String token) {
         SharedPreferences.Editor edit = context.getSharedPreferences(Constant.LOGIN_USER_TOKEN, Context.MODE_PRIVATE).edit();
@@ -140,6 +156,31 @@ public class PayHelperUtils {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.OPEN_URL, Context.MODE_PRIVATE);
 
         return sharedPreferences.getString(Constant.OPEN_URL, "");
+    }
+
+
+    public static void saveRebate(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_REBATE, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_REBATE, token).apply();
+    }
+
+    public static String getRebate(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_REBATE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_REBATE, "");
+    }
+
+    public static void savePaymentXeRebate(Context context, String token) {
+        SharedPreferences.Editor edit = context.getSharedPreferences(Constant.USER_PAYMENTXEREBATE, Context.MODE_PRIVATE).edit();
+        edit.putString(Constant.USER_PAYMENTXEREBATE, token).apply();
+    }
+
+    public static String getPaymentXeRebate(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constant.USER_PAYMENTXEREBATE, Context.MODE_PRIVATE);
+
+        return sharedPreferences.getString(Constant.USER_PAYMENTXEREBATE, "");
     }
 
 }

@@ -16,4 +16,11 @@
 
     <string name="bottom">Hello second fragment. Arg: %1$s</string>
 
+
+    <string name="class_buyrecord">H.ui.buyrecord.BuyRecordActivity</string>
+    <string name="class_sellrecord">.ui.sellrecord.SellRecordActivitys</string>
+    <string name="class_TransactionActivity">.ui.transaction.TransactionActivity</string>
+    <string name="class_accountchange">.ui.accountchange.AccountChangeActivity</string>
+
+
 </resources>

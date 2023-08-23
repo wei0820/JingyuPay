@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,16 +30,20 @@ class TransactionActivity : AppCompatActivity() , DatePickerDialog.OnDateSetList
     var adapter: Adapter? = null
 
     var buyDataList: ArrayList<FrozenRecordsData.Data> = ArrayList()
-
+    lateinit var closebtn : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction)
         dateTextView = findViewById(R.id.dayedt)
 
-        title = "买币记录"
+        title = "进行中交易"
         recyclerView = findViewById(R.id.recycler_view)
         okButton = findViewById(R.id.datebtn)
+        closebtn = findViewById(R.id.closeBtn)
+        closebtn.setOnClickListener {
+            finish()
+        }
         okButton.setOnClickListener {
 
             showDatePickerDialog()

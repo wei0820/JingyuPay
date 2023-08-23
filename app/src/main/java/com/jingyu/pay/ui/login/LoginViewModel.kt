@@ -15,14 +15,17 @@ class LoginViewModel : ViewModel() {
     var  token  = MutableLiveData<LoginData>()
 
     fun getUserToken(loginid:String,password:String,code:String) : LiveData<LoginData>{
+
         homeViewModel.setUserLogin(loginid,password,code, object : LoginDateModel.LoginrResponse {
             override fun getResponse(s: String) {
-                Log.d("Jack",s)
-                viewModelScope.launch {
-                    var userData = Gson().fromJson(s, LoginData::class.java)
-                    token.value = userData
+                if (!s.isEmpty()){
+                    viewModelScope.launch {
+                        var userData = Gson().fromJson(s, LoginData::class.java)
+                        token.value = userData
 
+                    }
                 }
+
             }
 
         })

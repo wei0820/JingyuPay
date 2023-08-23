@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +31,7 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
     lateinit var dateTextView: TextView
     lateinit var okButton: Button
     lateinit var recyclerView: RecyclerView
+    lateinit var closebtn :ImageButton
     val merchantOrdersViewModel: SellRecodeViewModel by lazy {
         ViewModelProvider(this, SellRecordViewModelFactory()).get(SellRecodeViewModel::class.java)
     }
@@ -48,11 +50,16 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
         title = "卖币记录"
         recyclerView = findViewById(R.id.recycler_view)
         okButton = findViewById(R.id.datebtn)
+        closebtn = findViewById(R.id.closeBtn)
+        closebtn.setOnClickListener {
+            finish()
+        }
         okButton.setOnClickListener {
 
             showDatePickerDialog()
 
         }
+
         dateTextView.text = getTodayTime()
 
         getList(getTodayTime().toString())
@@ -83,7 +90,8 @@ class SellRecordActivity : AppCompatActivity() , DatePickerDialog.OnDateSetListe
 
                     }
                 }
-            }        })
+            }
+        })
     }
 
     fun showDatePickerDialog() {

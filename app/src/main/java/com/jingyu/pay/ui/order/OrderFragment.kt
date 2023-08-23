@@ -99,7 +99,6 @@ class OrderFragment : Fragment(){
     fun cancelToUrl(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "voucher/" +id
-        Log.d("Jack",url)
 
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
@@ -112,7 +111,6 @@ class OrderFragment : Fragment(){
     fun confirmOrder(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "index/" +id
-        Log.d("Jack",url)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
         intent.data = Uri.parse(url)

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.jingyu.pay.AddBankCardDialog
+import com.jingyu.pay.AddBuySettingDilog
 import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.R
 import com.jingyu.pay.ToastManager
@@ -27,7 +27,6 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    var addbutton : Button? = null
 
     val merchantOrdersViewModel: HomeViewModel by lazy {
         ViewModelProvider(this, HomeViewModelFactory()).get(HomeViewModel::class.java)
@@ -49,7 +48,7 @@ class HomeFragment : Fragment() {
 
         getBuyDataList()
         fab.setOnClickListener {
-            val dialog = AddBankCardDialog(activity)
+            val dialog = AddBuySettingDilog(activity)
             dialog.setAddBankCallback {
                 if (it != null){
                     if (it.code == 0){
@@ -66,9 +65,6 @@ class HomeFragment : Fragment() {
 
 
         adapter = Adapter(this)
-
-        // create a vertical layout manager
-        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
         adapter!!.updateList(buyDataList)
@@ -226,11 +222,6 @@ class HomeFragment : Fragment() {
         override fun getItemCount(): Int {
             return bankCardInfoList!!.size
         }
-
-//          //更新資料用
-//          fun updateList(list:List<String>){
-//              bankCardInfoList = list
-//          }
 
         //更新資料用
         fun updateList(list:ArrayList<BuyData.Data>){
