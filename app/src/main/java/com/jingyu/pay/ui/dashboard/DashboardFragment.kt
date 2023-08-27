@@ -114,12 +114,10 @@ class DashboardFragment : Fragment() {
     fun cancelToUrl(id : String){
 
         var url : String = PayHelperUtils.getOpenUrl(requireActivity()) + "voucher/" +id +"?actionName=cancel"
-        Log.d("Jack",url)
-        Log.d("Jack"," http://jytest.ddns.me:44351/file/voucher/BE562CE1-0142-4FEE-A667-967F2E8580A3?actionName=cancel")
-
+        Log.d("Jack","關閉"+ url)
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
-        intent.data = Uri.parse("http://jytest.ddns.me:44351/file/voucher/BE562CE1-0142-4FEE-A667-967F2E8580A3?actionName=cancel")
+        intent.data = Uri.parse(url)
         startActivity(intent)
 
 

@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.jingyu.pay.BasicActivity
 import com.jingyu.pay.MainActivity
 import com.jingyu.pay.PayHelperUtils
 import com.jingyu.pay.R
@@ -15,7 +16,7 @@ import com.jingyu.pay.ui.home.HomeViewModelFactory
 import com.tools.payhelper.ui.login.LoginViewModelFactory
 
 lateinit var loginButton: Button
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BasicActivity() {
     val loginViewModel: LoginViewModel by lazy {
         ViewModelProvider(this, LoginViewModelFactory()).get(LoginViewModel::class.java)
     }
