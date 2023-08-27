@@ -160,7 +160,7 @@ class Adapter() : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
         holder.amount.text = "佣金￥"+info.commission
 
-        holder.frozen.text = "进行中的冻结金额￥" + info.frozen
+        holder.frozen.text = "进行中金额￥" + info.frozen
 
 
     }
