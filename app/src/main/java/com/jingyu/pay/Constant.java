@@ -1,7 +1,8 @@
 package com.jingyu.pay;
 
 public class Constant {
-    public  final static String  API_URL = "http://jytest.ddns.me:44301/";
+//    public  final static String  API_URL = "http://jytest.ddns.me:44301/";
+public  final static String  API_URL = "https://api4.channel-sign.com/";
 
 
     public  final static  String CALL_API = "CALL_API";

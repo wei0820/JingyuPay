@@ -25,14 +25,16 @@ class PersonalViewModel : ViewModel() {
 
         homeViewModel.test(context,"", object : PersonalDateModel.OrderResponse {
             override fun getResponse(s: String) {
-                Log.d("Jack",s);
-                viewModelScope.launch {
+                if (!s.isEmpty()){
                     viewModelScope.launch {
-                        var userData = Gson().fromJson(s, UserinfoData::class.java)
-                        userinfoData.value = userData
+                        viewModelScope.launch {
+                            var userData = Gson().fromJson(s, UserinfoData::class.java)
+                            userinfoData.value = userData
 
+                        }
                     }
                 }
+
             }
 
             override fun getFailure(s: String) {

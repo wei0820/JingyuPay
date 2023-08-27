@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="用戶帳號"
+        android:text="用户帐号"
         android:textSize="16sp"
         ></TextView>
     <EditText
@@ -26,7 +26,7 @@
         android:id="@+id/edt"
         android:layout_width="160dp"
         android:layout_height="0dp"
-        android:hint="請輸入帳號"
+        android:hint="请输入帐号"
         android:textSize="16sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/text"
@@ -50,7 +50,7 @@
         android:layout_marginTop="42dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="用戶密碼"
+        android:text="用户密码"
         android:textSize="16sp"
         ></TextView>
     <EditText
@@ -60,7 +60,7 @@
 
         android:id="@+id/edt2"
 
-        android:hint="請輸入密碼"
+        android:hint="请输入密码"
         app:layout_constraintStart_toStartOf="@id/edt"
         app:layout_constraintEnd_toEndOf="@+id/edt"
         android:textSize="16sp"
@@ -86,7 +86,7 @@
         android:layout_marginTop="42dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="驗證碼"
+        android:text="验证码"
         android:textSize="16sp"
         ></TextView>
 
@@ -98,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="@+id/edt"
         android:id="@+id/edt3"
 
-        android:hint="請輸入驗證碼"
+        android:hint="请输入验证码"
         android:textSize="16sp"
 
         android:gravity="left|center_vertical"
@@ -121,17 +121,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         >
+
         <Button
-            android:layout_centerInParent="true"
-            android:background="@drawable/bg_login_radius"
             android:id="@+id/loginbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_login_radius"
             android:text="登入"
-            android:textSize="16sp"
-
-
-            ></Button>
+            android:textSize="16sp"></Button>
 
     </RelativeLayout>
 

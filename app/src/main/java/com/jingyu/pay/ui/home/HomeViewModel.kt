@@ -74,7 +74,6 @@ class HomeViewModel : ViewModel() {
 
                 viewModelScope.launch {
                     if (!s.isEmpty()){
-                        Log.d("Jack",s);
                         var data = Gson().fromJson(s,PaymentMatchingData::class.java)
                         mPaymentMatchingData.value = data
                     }

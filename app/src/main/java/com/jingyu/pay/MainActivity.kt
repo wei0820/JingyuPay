@@ -35,6 +35,5 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.selectedItemId = R.id.navigation_notifications
-        Log.d(TAG, "onCreate: "+ PayHelperUtils.md5("a123456"))
     }
 }

@@ -182,7 +182,7 @@ class BankCardListActivity : AppCompatActivity() {
             holder.userName.text = info.userName
             holder.pinName.text = info.pinYin
 
-            holder.switchButton.isChecked = info.isEnable
+            holder.switchButton.isChecked = !info.isEnable
 
 
             holder.remove_btn.setOnClickListener {
