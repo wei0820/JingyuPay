@@ -73,6 +73,8 @@ class NotificationsFragment : Fragment() ,View.OnClickListener{
 
             var array = it.data.apIs.split("|");
 
+            Log.d("url",array.get(0).toString())
+
             PayHelperUtils.saveOpenUrl(context,array.get(0).toString())
 
             PayHelperUtils.isShowNews(context,it.data.note)
